@@ -28,7 +28,7 @@ public class MyBetsFragment extends BaseFragment {
     protected void downButtonClicked() {
         final NavigatorFragment navigator = NavigatorFragment.findNavigator(this);
         if (navigator != null) {
-            navigator.replaceFragment(new BetFragment(), true);
+            navigator.getRouter().navigateTo(BetFragment.class.getSimpleName());
         }
     }
 }

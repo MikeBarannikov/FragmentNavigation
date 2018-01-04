@@ -28,7 +28,7 @@ public class LiveFragment extends BaseFragment {
     protected void downButtonClicked() {
         final NavigatorFragment navigator = NavigatorFragment.findNavigator(this);
         if (navigator != null) {
-            navigator.replaceFragment(new LiveGamesFragment(), true);
+            navigator.getRouter().navigateTo(LiveGamesFragment.class.getSimpleName());
         }
     }
 }

@@ -28,7 +28,7 @@ public class MessageFragment extends BaseFragment {
     protected void downButtonClicked() {
         final NavigatorFragment navigator = NavigatorFragment.findNavigator(this);
         if (navigator != null) {
-            navigator.replaceFragment(new NewMessageFragment(), true);
+            navigator.getRouter().navigateTo(NewMessageFragment.class.getSimpleName());
         }
     }
 }

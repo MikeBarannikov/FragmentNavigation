@@ -28,7 +28,7 @@ public class PrematchFragment extends BaseFragment {
     protected void downButtonClicked() {
         final NavigatorFragment navigator = NavigatorFragment.findNavigator(this);
         if (navigator != null) {
-            navigator.replaceFragment(new PrematchLocationFragment(), true);
+            navigator.getRouter().navigateTo(PrematchLocationFragment.class.getSimpleName());
         }
     }
 }

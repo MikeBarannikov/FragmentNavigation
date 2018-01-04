@@ -28,7 +28,7 @@ public class PrematchLocationFragment extends BaseFragment {
     protected void downButtonClicked() {
         final NavigatorFragment navigator = NavigatorFragment.findNavigator(this);
         if (navigator != null) {
-            navigator.replaceFragment(new PrematchLocationLeaguesFragment(), true);
+            navigator.getRouter().navigateTo(PrematchLocationLeaguesFragment.class.getSimpleName());
         }
     }
 }

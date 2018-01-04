@@ -3,11 +3,13 @@ package com.crazy.fragmentnavigation.ui.base;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import ru.terrakok.cicerone.Router;
+
 /**
  * @author Mike
  */
 
-public class BackStackFragment extends LogFragment {
+public abstract class BackStackFragment extends LogFragment {
 
     public static boolean canBack(FragmentManager fm) {
         return handleBackPressed(fm, true);
@@ -36,10 +38,12 @@ public class BackStackFragment extends LogFragment {
             return true;
         } else if (getUserVisibleHint() && fm.getBackStackEntryCount() > 0) {
             if (!isCheck) {
-                fm.popBackStack();
+                getRouter().exit();
             }
             return true;
         }
         return false;
     }
+
+    protected abstract Router getRouter();
 }
