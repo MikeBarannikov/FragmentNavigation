@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/liveFragment">
+
+    <fragment
+        android:id="@+id/liveFragment"
+        android:name="com.crazy.fragmentnavigation.ui.games.LiveFragment"
+        android:label="LiveFragment"
+        tools:layout="@layout/fr_base_toolbar">
+        <action
+            android:id="@+id/next_action"
+            app:destination="@id/liveGamesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/liveGamesFragment"
+        android:name="com.crazy.fragmentnavigation.ui.games.LiveGamesFragment"
+        android:label="LiveGamesFragment"
+        tools:layout="@layout/fr_base_toolbar" />
+</navigation>

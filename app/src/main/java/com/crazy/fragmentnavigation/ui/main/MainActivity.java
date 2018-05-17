@@ -11,20 +11,22 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.crazy.fragmentnavigation.R;
-import com.crazy.fragmentnavigation.ui.account.AccountFragment;
-import com.crazy.fragmentnavigation.ui.base.BackStackFragment;
-import com.crazy.fragmentnavigation.ui.base.NavigatorFragment;
-import com.crazy.fragmentnavigation.ui.bets.MyBetsFragment;
-import com.crazy.fragmentnavigation.ui.games.GamesFragment;
+import com.crazy.fragmentnavigation.ui.base.NavHostViewPagerFragment;
 
 import java.util.List;
+
+import androidx.navigation.fragment.NavHostFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String GAMES_TAG = "Games";
+
     public static final String FAV_TAG = "Fav";
+
     public static final String BET_SLIP_TAG = "BetSlip";
+
     public static final String MY_BETS_TAG = "MyBets";
+
     public static final String ACCOUNT_TAG = "Account";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -33,20 +35,20 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    switchFragment(NavigatorFragment.newInstance(new GamesFragment()), GAMES_TAG);
+                case R.id.games:
+                    switchFragment(NavHostViewPagerFragment.newInstance(R.navigation.games_navigation), GAMES_TAG);
                     return true;
-                case R.id.navigation_dashboard:
-                    switchFragment(NavigatorFragment.newInstance(new FavFragment()), FAV_TAG);
+                case R.id.accounts:
+                    switchFragment(NavHostFragment.create(R.navigation.account_navigation), ACCOUNT_TAG);
                     return true;
-                case R.id.navigation_notifications:
-                    switchFragment(NavigatorFragment.newInstance(new BetSlipFragment()), BET_SLIP_TAG);
+                case R.id.my_bets:
+                    switchFragment(NavHostFragment.create(R.navigation.bets_navigation), MY_BETS_TAG);
                     return true;
-                case R.id.navigation_cart:
-                    switchFragment(NavigatorFragment.newInstance(new MyBetsFragment()), MY_BETS_TAG);
+                case R.id.favorite:
+                    switchFragment(NavHostFragment.create(R.navigation.fav_navigation), FAV_TAG);
                     return true;
-                case R.id.navigation_money:
-                    switchFragment(NavigatorFragment.newInstance(new AccountFragment()), ACCOUNT_TAG);
+                case R.id.betslip:
+                    switchFragment(NavHostFragment.create(R.navigation.bet_slip_navigation), BET_SLIP_TAG);
                     return true;
             }
             return false;
@@ -57,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.main_host_fragment);
         if (currentFragment != null) {
             fragmentTransaction.detach(currentFragment);
         }
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         if (addedFragment != null) {
             fragmentTransaction.attach(addedFragment);
         } else {
-            fragmentTransaction.add(R.id.fragmentContainer, fragment, tag);
+            fragmentTransaction.add(R.id.main_host_fragment, fragment, tag);
         }
 
         fragmentTransaction.commit();
@@ -76,23 +78,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        if (!BackStackFragment.handleBackPressed(getSupportFragmentManager())) {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_main);
 
         if (savedInstanceState == null) {
-            switchFragment(NavigatorFragment.newInstance(new GamesFragment()), GAMES_TAG);
+            switchFragment(NavHostViewPagerFragment.newInstance(R.navigation.games_navigation), GAMES_TAG);
         }
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.main_host_fragment);
+        if (!NavHostFragment.findNavController(fragment).navigateUp()) {
+            super.onBackPressed();
+        }
     }
 
 }

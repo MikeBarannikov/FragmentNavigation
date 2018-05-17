@@ -1,12 +1,16 @@
 package com.crazy.fragmentnavigation.ui.games;
 
+import android.view.View;
+
 import com.crazy.fragmentnavigation.R;
 import com.crazy.fragmentnavigation.ui.base.BaseFragment;
-import com.crazy.fragmentnavigation.ui.base.NavigatorFragment;
+
+import androidx.navigation.Navigation;
 
 /**
  * @author Mike
  */
+
 
 public class LiveGamesFragment extends BaseFragment {
     @Override
@@ -25,10 +29,9 @@ public class LiveGamesFragment extends BaseFragment {
     }
 
     @Override
-    protected void downButtonClicked() {
-        final NavigatorFragment navigator = NavigatorFragment.findNavigator(NavigatorFragment.findNavigator(this));
-        if (navigator != null) {
-            navigator.replaceFragment(new GameFragment(), true);
+    protected void downButtonClicked(View view) {
+        if (getActivity() != null) {
+            Navigation.findNavController(getActivity(), R.id.main_host_fragment).navigate(R.id.game_action);
         }
     }
 }

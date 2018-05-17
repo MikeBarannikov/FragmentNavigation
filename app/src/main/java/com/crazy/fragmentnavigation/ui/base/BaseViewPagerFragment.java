@@ -1,10 +1,9 @@
 package com.crazy.fragmentnavigation.ui.base;
 
 import android.os.Bundle;
-import android.support.annotation.ColorRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -15,22 +14,29 @@ import android.view.ViewGroup;
 import com.crazy.fragmentnavigation.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
+
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 /**
  * @author Mike
  */
 
-public abstract class BaseViewPagerFragment extends BackStackFragment {
+public abstract class BaseViewPagerFragment extends NavHostFragment {
 
     private ViewPager mViewPager;
+
     private MyPagerAdapter mMyPagerAdapter;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         final View view = inflater.inflate(getLayout(), container, false);
 
@@ -42,6 +48,7 @@ public abstract class BaseViewPagerFragment extends BackStackFragment {
 
         mViewPager = view.findViewById(R.id.view_pager);
         mViewPager.setOffscreenPageLimit(2);
+
         mViewPager.setAdapter(mMyPagerAdapter = new MyPagerAdapter(getContext(), getChildFragmentManager(), fragments));
 
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
@@ -50,7 +57,13 @@ public abstract class BaseViewPagerFragment extends BackStackFragment {
         return view;
     }
 
-    protected abstract List<Fragment> getFragmentList();
+    @NonNull
+    @Override
+    public NavController getNavController() {
+        return ((NavHostFragment) mMyPagerAdapter.getItem(mViewPager.getCurrentItem())).getNavController();
+    }
+
+    protected abstract List<NavHostFragment> getFragmentList();
 
     @LayoutRes
     protected int getLayout() {
