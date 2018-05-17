@@ -6,6 +6,7 @@ import com.crazy.fragmentnavigation.R;
 import com.crazy.fragmentnavigation.ui.base.BaseFragment;
 
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 /**
  * @author Mike
@@ -29,6 +30,6 @@ public class PrematchFragment extends BaseFragment {
 
     @Override
     protected void downButtonClicked(View view) {
-        Navigation.findNavController(view).navigate(R.id.next_action);
+        NavHostFragment.findNavController(this).navigate(R.id.next_action);
     }
 }
