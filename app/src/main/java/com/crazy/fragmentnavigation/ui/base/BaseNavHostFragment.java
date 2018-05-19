@@ -9,10 +9,10 @@ import java.util.List;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
-public class NavHostViewPagerFragment extends NavHostFragment {
+public class BaseNavHostFragment extends NavHostFragment {
 
-    public static NavHostViewPagerFragment newInstance(@NavigationRes int graphId) {
-        NavHostViewPagerFragment fragment = new NavHostViewPagerFragment();
+    public static BaseNavHostFragment newInstance(@NavigationRes int graphId) {
+        BaseNavHostFragment fragment = new BaseNavHostFragment();
         fragment.setGraph(graphId);
         return fragment;
     }
