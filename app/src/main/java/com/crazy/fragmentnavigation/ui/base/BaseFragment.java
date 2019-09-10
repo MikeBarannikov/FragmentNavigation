@@ -32,7 +32,7 @@ public abstract class BaseFragment extends LogFragment {
         downButtonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                downButtonClicked();
+                downButtonClicked(view);
             }
         });
 
@@ -50,6 +50,6 @@ public abstract class BaseFragment extends LogFragment {
         return R.layout.fr_base;
     }
 
-    protected void downButtonClicked() {
+    protected void downButtonClicked(View view) {
     }
 }

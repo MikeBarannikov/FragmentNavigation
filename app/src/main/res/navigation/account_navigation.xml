@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/accounts"
+    app:startDestination="@id/start_account">
+    <fragment
+        android:id="@+id/start_account"
+        android:name="com.crazy.fragmentnavigation.ui.account.AccountFragment"
+        tools:layout="@layout/fr_base_toolbar">
+        <action
+            android:id="@+id/next_action"
+            app:destination="@id/messagesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.crazy.fragmentnavigation.ui.account.MessagesFragment"
+        android:label="MessagesFragment"
+        tools:layout="@layout/fr_base_toolbar">
+        <action
+            android:id="@+id/next_action"
+            app:destination="@id/messageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.crazy.fragmentnavigation.ui.account.MessageFragment"
+        android:label="MessageFragment"
+        tools:layout="@layout/fr_base_toolbar">
+        <action
+            android:id="@+id/next_action"
+            app:destination="@id/newMessageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newMessageFragment"
+        android:name="com.crazy.fragmentnavigation.ui.account.NewMessageFragment"
+        android:label="NewMessageFragment"
+        tools:layout="@layout/fr_base_toolbar" />
+</navigation>

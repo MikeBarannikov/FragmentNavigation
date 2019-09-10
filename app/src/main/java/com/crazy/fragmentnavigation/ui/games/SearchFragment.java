@@ -1,5 +1,7 @@
 package com.crazy.fragmentnavigation.ui.games;
 
+import android.view.View;
+
 import com.crazy.fragmentnavigation.R;
 import com.crazy.fragmentnavigation.ui.base.BaseFragment;
 
@@ -24,6 +26,6 @@ public class SearchFragment extends BaseFragment {
     }
 
     @Override
-    protected void downButtonClicked() {
+    protected void downButtonClicked(View view) {
     }
 }

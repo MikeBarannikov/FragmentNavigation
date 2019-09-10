@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/prematchFragment">
+
+    <fragment
+        android:id="@+id/prematchFragment"
+        android:name="com.crazy.fragmentnavigation.ui.games.PrematchFragment"
+        android:label="PrematchFragment">
+        <action
+            android:id="@+id/next_action"
+            app:destination="@id/prematchLocationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prematchLocationFragment"
+        android:name="com.crazy.fragmentnavigation.ui.games.PrematchLocationFragment"
+        android:label="PrematchLocationFragment">
+        <action
+            android:id="@+id/next_action"
+            app:destination="@id/prematchLocationLeaguesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prematchLocationLeaguesFragment"
+        android:name="com.crazy.fragmentnavigation.ui.games.PrematchLocationLeaguesFragment"
+        android:label="PrematchLocationLeaguesFragment">
+        <action
+            android:id="@+id/next_action"
+            app:destination="@id/prematchLocationLeagueGamesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prematchLocationLeagueGamesFragment"
+        android:name="com.crazy.fragmentnavigation.ui.games.PrematchLocationLeagueGamesFragment"
+        android:label="PrematchLocationLeagueGamesFragment" />
+</navigation>

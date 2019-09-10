@@ -1,13 +1,12 @@
 package com.crazy.fragmentnavigation.ui.games;
 
-import android.support.v4.app.Fragment;
-
 import com.crazy.fragmentnavigation.R;
 import com.crazy.fragmentnavigation.ui.base.BaseViewPagerFragment;
-import com.crazy.fragmentnavigation.ui.base.NavigatorFragment;
 
 import java.util.Arrays;
 import java.util.List;
+
+import androidx.navigation.fragment.NavHostFragment;
 
 /**
  * @author Mike
@@ -15,11 +14,11 @@ import java.util.List;
 
 public class GamesFragment extends BaseViewPagerFragment {
     @Override
-    protected List<Fragment> getFragmentList() {
+    protected List<NavHostFragment> getFragmentList() {
         return Arrays.asList(
-                NavigatorFragment.newInstance(new LiveFragment()),
-                NavigatorFragment.newInstance(new PrematchFragment()),
-                NavigatorFragment.newInstance(new SearchFragment()));
+                NavHostFragment.create(R.navigation.live_navigation),
+                NavHostFragment.create(R.navigation.prematch_navigation),
+                NavHostFragment.create(R.navigation.search_navigation));
     }
 
     @Override

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/betslip">
+    <fragment
+        android:id="@+id/betslip"
+        android:name="com.crazy.fragmentnavigation.ui.main.BetSlipFragment"
+        tools:layout="@layout/fr_base_toolbar" />
+</navigation>

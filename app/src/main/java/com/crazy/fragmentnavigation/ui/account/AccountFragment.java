@@ -1,8 +1,11 @@
 package com.crazy.fragmentnavigation.ui.account;
 
+import android.view.View;
+
 import com.crazy.fragmentnavigation.R;
 import com.crazy.fragmentnavigation.ui.base.BaseFragment;
-import com.crazy.fragmentnavigation.ui.base.NavigatorFragment;
+
+import androidx.navigation.Navigation;
 
 /**
  * @author Mike
@@ -24,10 +27,7 @@ public class AccountFragment extends BaseFragment {
     }
 
     @Override
-    protected void downButtonClicked() {
-        final NavigatorFragment navigator = NavigatorFragment.findNavigator(this);
-        if (navigator != null) {
-            navigator.replaceFragment(new MessagesFragment(), true);
-        }
+    protected void downButtonClicked(View view) {
+        Navigation.findNavController(view).navigate(R.id.next_action);
     }
 }

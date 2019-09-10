@@ -1,8 +1,11 @@
 package com.crazy.fragmentnavigation.ui.games;
 
+import android.view.View;
+
 import com.crazy.fragmentnavigation.R;
 import com.crazy.fragmentnavigation.ui.base.BaseFragment;
-import com.crazy.fragmentnavigation.ui.base.NavigatorFragment;
+
+import androidx.navigation.fragment.NavHostFragment;
 
 /**
  * @author Mike
@@ -25,10 +28,7 @@ public class PrematchLocationLeaguesFragment extends BaseFragment {
     }
 
     @Override
-    protected void downButtonClicked() {
-        final NavigatorFragment navigator = NavigatorFragment.findNavigator(this);
-        if (navigator != null) {
-            navigator.replaceFragment(new PrematchLocationLeagueGamesFragment(), true);
-        }
+    protected void downButtonClicked(View view) {
+        NavHostFragment.findNavController(this).navigate(R.id.next_action);
     }
 }

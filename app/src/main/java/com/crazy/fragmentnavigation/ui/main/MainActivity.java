@@ -1,6 +1,7 @@
 package com.crazy.fragmentnavigation.ui.main;
 
 import android.os.Bundle;
+import android.support.annotation.NavigationRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -11,20 +12,22 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.crazy.fragmentnavigation.R;
-import com.crazy.fragmentnavigation.ui.account.AccountFragment;
-import com.crazy.fragmentnavigation.ui.base.BackStackFragment;
-import com.crazy.fragmentnavigation.ui.base.NavigatorFragment;
-import com.crazy.fragmentnavigation.ui.bets.MyBetsFragment;
-import com.crazy.fragmentnavigation.ui.games.GamesFragment;
+import com.crazy.fragmentnavigation.ui.base.BaseNavHostFragment;
 
 import java.util.List;
+
+import androidx.navigation.fragment.NavHostFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String GAMES_TAG = "Games";
+
     public static final String FAV_TAG = "Fav";
+
     public static final String BET_SLIP_TAG = "BetSlip";
+
     public static final String MY_BETS_TAG = "MyBets";
+
     public static final String ACCOUNT_TAG = "Account";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -33,31 +36,31 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    switchFragment(NavigatorFragment.newInstance(new GamesFragment()), GAMES_TAG);
+                case R.id.games:
+                    switchFragment(R.navigation.games_navigation, GAMES_TAG);
                     return true;
-                case R.id.navigation_dashboard:
-                    switchFragment(NavigatorFragment.newInstance(new FavFragment()), FAV_TAG);
+                case R.id.accounts:
+                    switchFragment(R.navigation.account_navigation, ACCOUNT_TAG);
                     return true;
-                case R.id.navigation_notifications:
-                    switchFragment(NavigatorFragment.newInstance(new BetSlipFragment()), BET_SLIP_TAG);
+                case R.id.my_bets:
+                    switchFragment(R.navigation.bets_navigation, MY_BETS_TAG);
                     return true;
-                case R.id.navigation_cart:
-                    switchFragment(NavigatorFragment.newInstance(new MyBetsFragment()), MY_BETS_TAG);
+                case R.id.favorite:
+                    switchFragment(R.navigation.fav_navigation, FAV_TAG);
                     return true;
-                case R.id.navigation_money:
-                    switchFragment(NavigatorFragment.newInstance(new AccountFragment()), ACCOUNT_TAG);
+                case R.id.betslip:
+                    switchFragment(R.navigation.bet_slip_navigation, BET_SLIP_TAG);
                     return true;
             }
             return false;
         }
     };
 
-    private void switchFragment(Fragment fragment, String tag) {
+    private void switchFragment(@NavigationRes int graphId, String tag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.main_host_fragment);
         if (currentFragment != null) {
             fragmentTransaction.detach(currentFragment);
         }
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         if (addedFragment != null) {
             fragmentTransaction.attach(addedFragment);
         } else {
-            fragmentTransaction.add(R.id.fragmentContainer, fragment, tag);
+            fragmentTransaction.add(R.id.main_host_fragment, BaseNavHostFragment.newInstance(graphId), tag);
         }
 
         fragmentTransaction.commit();
@@ -76,23 +79,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        if (!BackStackFragment.handleBackPressed(getSupportFragmentManager())) {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ac_main);
 
         if (savedInstanceState == null) {
-            switchFragment(NavigatorFragment.newInstance(new GamesFragment()), GAMES_TAG);
+            switchFragment(R.navigation.games_navigation, GAMES_TAG);
         }
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.main_host_fragment);
+        if (!NavHostFragment.findNavController(fragment).navigateUp()) {
+            super.onBackPressed();
+        }
     }
 
 }
